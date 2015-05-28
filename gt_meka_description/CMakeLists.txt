@@ -1,30 +1,54 @@
-cmake_minimum_required(VERSION 2.4.6)
-include($ENV{ROS_ROOT}/core/rosbuild/rosbuild.cmake)
+cmake_minimum_required(VERSION 2.8.3)
+project(gt_meka_description)
 
-# Set the build type.  Options are:
-#  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
-#  Debug          : w/ debug symbols, w/o optimization
-#  Release        : w/o debug symbols, w/ optimization
-#  RelWithDebInfo : w/ debug symbols, w/ optimization
-#  MinSizeRel     : w/o debug symbols, w/ optimization, stripped binaries
-#set(ROS_BUILD_TYPE RelWithDebInfo)
+find_package(catkin REQUIRED COMPONENTS xacro)
+catkin_package()
 
-rosbuild_init()
+set(BASE_OUTPUT_DIR "${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_SHARE_DESTINATION}")
+set(URDF_OUTPUT_DIR "${BASE_OUTPUT_DIR}/robots")
 
-#set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+file(MAKE_DIRECTORY "${URDF_OUTPUT_DIR}")
 
-#uncomment if you have defined messages
-#rosbuild_genmsg()
-#uncomment if you have defined services
-#rosbuild_gensrv()
+macro(xacro_expand input_path output_path)
+    add_custom_command(OUTPUT "${output_path}"
+        DEPENDS "${input_path}" ${ARGN}
+        COMMAND rosrun xacro xacro.py -o "${output_path}" "${input_path}"
+    )
+endmacro()
 
-#common commands for building c++ executables and libraries
-#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-#target_link_libraries(${PROJECT_NAME} another_library)
-#rosbuild_add_boost_directories()
-#rosbuild_link_boost(${PROJECT_NAME} thread)
-#rosbuild_add_executable(example examples/example.cpp)
-#target_link_libraries(example ${PROJECT_NAME})
+xacro_expand("${PROJECT_SOURCE_DIR}/urdf/curi.urdf.xacro"
+    "${URDF_OUTPUT_DIR}/curi.urdf"
+    # Also Depends:
+    "${PROJECT_SOURCE_DIR}/urdf/A2R4_l_arm_defs.urdf.xacro"
+    "${PROJECT_SOURCE_DIR}/urdf/A2R4_r_arm_defs.urdf.xacro"
+    "${PROJECT_SOURCE_DIR}/urdf/B1R2B_defs.urdf.xacro"
+    "${PROJECT_SOURCE_DIR}/urdf/H2R4_l_hand_defs.urdf.xacro"
+    "${PROJECT_SOURCE_DIR}/urdf/H2R4_r_hand_defs.urdf.xacro"
+    "${PROJECT_SOURCE_DIR}/urdf/HRL_EE_Left.urdf.xacro"
+    "${PROJECT_SOURCE_DIR}/urdf/SIMC_head_defs.urdf.xacro"
+    "${PROJECT_SOURCE_DIR}/urdf/Z1R2B_defs.urdf.xacro"
+    )
+add_custom_target(curi_urdf ALL
+    DEPENDS "${URDF_OUTPUT_DIR}/curi.urdf"
+    COMMENT "Generating Curi URDF"
+    VERBATIM
+)
+
+add_custom_command(OUTPUT "${URDF_OUTPUT_DIR}/curi.srdf"
+    DEPENDS "${PROJECT_SOURCE_DIR}/urdf/curi.srdf"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${PROJECT_SOURCE_DIR}/urdf/curi.srdf"
+            "${URDF_OUTPUT_DIR}/curi.srdf"
+
+)
+add_custom_target(curi_srdf ALL
+    DEPENDS "${URDF_OUTPUT_DIR}/curi.srdf"
+    COMMENT "Generating Curi SRDF"
+    VERBATIM
+)
+
+install(DIRECTORY "meshes"
+                  "${URDF_OUTPUT_DIR}"
+        DESTINATION "${CATKIN_PACKAGE_SHARE_DESTINATION}"
+        PATTERN ".git" EXCLUDE
+)

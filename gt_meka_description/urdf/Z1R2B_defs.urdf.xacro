@@ -6,8 +6,8 @@
   <macro name="meka_zlift" params="side parent reflect *origin">
 
     <!-- Shoulder pan -->
-    <joint name="torso_lift_joint" type="prismatic">
-    <!--joint name="zlift_joint" type="prismatic"-->
+    <!--<joint name="torso_lift_joint" type="prismatic">-->
+        <joint name="torso_lift_joint" type="fixed"> <!-- TODO fix or_rviz to work with prismatic joint marker -->
       <axis xyz="0 0 1" />
       <insert_block name="origin" />
       <parent link="${parent}"/>

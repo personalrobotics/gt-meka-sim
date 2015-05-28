@@ -1,46 +1,45 @@
 <?xml version="1.0"?>
-<robot name="Simco"  xmlns:xacro="http:www.ros.org/wiki/xacro">
+<robot name="Curi"
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
 
- <property name="M_PI" value="3.1415926535897931" />
-
- 
- <property name="MESH" value="gt_meka_description/urdf/meshes/mid_res" />
- <property name="MESH_COLL" value="gt_meka_description/urdf/meshes/low_res" />
+ <xacro:property name="M_PI" value="3.1415926535897931" />
+ <xacro:property name="MESH" value="gt_meka_description/urdf/meshes/mid_res" />
+ <xacro:property name="MESH_COLL" value="gt_meka_description/urdf/meshes/low_res" />
 
   <!-- simulator_gazebo plugins and tags for inclusion in sdf -->
-  <include filename="./gazebo/gazebo.urdf.xacro" />
+  <!--<include filename="./gazebo/gazebo.urdf.xacro" />-->
 
   <!-- Additional gazebo files added for creating tactile sensors on some links for HRL -->
-  <include filename="./gazebo/gazebo_joints.urdf.xacro" />
-  <include filename="./gazebo/gazebo_hand_joints.urdf.xacro" />
-  <include filename="./gazebo/gazebo_head_joints.urdf.xacro" />
+  <!--<include filename="./gazebo/gazebo_joints.urdf.xacro" />-->
+  <!--<include filename="./gazebo/gazebo_hand_joints.urdf.xacro" />-->
+  <!--<include filename="./gazebo/gazebo_head_joints.urdf.xacro" />-->
   <!--include filename="./gazebo/gazebo_links.urdf.xacro" /-->
   <!--include filename="./gazebo/gazebo_hand_links.urdf.xacro" /-->
 
   <!-- Meka Base -->
-  <include filename="./B1R2B_defs.urdf.xacro" />
+  <xacro:include filename="./B1R2B_defs.urdf.xacro" />
 
   <!-- Meka Zlift -->
-  <include filename="./Z1R2B_defs.urdf.xacro" />
+  <xacro:include filename="./Z1R2B_defs.urdf.xacro" />
 
   <!-- Meka Arm -->
-  <include filename="./A2R4_r_arm_defs.urdf.xacro" />
-  <include filename="./A2R4_l_arm_defs.urdf.xacro" />
+  <xacro:include filename="./A2R4_r_arm_defs.urdf.xacro" />
+  <xacro:include filename="./A2R4_l_arm_defs.urdf.xacro" />
 
   <!-- Meka Hand -->
-  <include filename="./H2R4_r_hand_defs.urdf.xacro" />
-  <include filename="./H2R4_l_hand_defs.urdf.xacro" />
+  <xacro:include filename="./H2R4_r_hand_defs.urdf.xacro" />
+  <xacro:include filename="./H2R4_l_hand_defs.urdf.xacro" />
 
   <!-- Meka Head -->
-  <include filename="./SIMC_head_defs.urdf.xacro" />
+  <xacro:include filename="./SIMC_head_defs.urdf.xacro" />
 
   <!-- john added transmissions -->
-  <include filename="./transmissions_hydro/zlift_defs.transmission.xacro" />
-  <include filename="./transmissions_hydro/A2R4_r_arm_defs.transmission.xacro" />
-  <include filename="./transmissions_hydro/A2R4_l_arm_defs.transmission.xacro" />
-  <include filename="./transmissions_hydro/SIMC_head_defs.transmission.xacro" />
-  <include filename="./transmissions_hydro/H2R4_r_hand_defs.transmission.xacro" />
-  <include filename="./transmissions_hydro/H2R4_l_hand_defs.transmission.xacro" />
+  <!--<include filename="./transmissions_hydro/zlift_defs.transmission.xacro" />-->
+  <!--<include filename="./transmissions_hydro/A2R4_r_arm_defs.transmission.xacro" />-->
+  <!--<include filename="./transmissions_hydro/A2R4_l_arm_defs.transmission.xacro" />-->
+  <!--<include filename="./transmissions_hydro/SIMC_head_defs.transmission.xacro" />-->
+  <!--<include filename="./transmissions_hydro/H2R4_r_hand_defs.transmission.xacro" />-->
+  <!--<include filename="./transmissions_hydro/H2R4_l_hand_defs.transmission.xacro" />-->
 
   <link name="world" />
 
@@ -110,12 +109,12 @@
   </m3_head>
 
   <!-- john added transmissions -->
-  <m3_zlift_transmission name="torso_lift"/>
-  <m3_r_arm_transmission side="r" reflect="1" parent="torso_lift_link"/>
-  <m3_l_arm_transmission side="l" reflect="1" parent="torso_lift_link"/>
-  <m3_head_transmission />
-  <m3_r_hand_transmission />
-  <m3_l_hand_transmission />
+  <!--<m3_zlift_transmission name="torso_lift"/>-->
+  <!--<m3_r_arm_transmission side="r" reflect="1" parent="torso_lift_link"/>-->
+  <!--<m3_l_arm_transmission side="l" reflect="1" parent="torso_lift_link"/>-->
+  <!--<m3_head_transmission />-->
+  <!--<m3_r_hand_transmission />-->
+  <!--<m3_l_hand_transmission />-->
 
 </robot>
   

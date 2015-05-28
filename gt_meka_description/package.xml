@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+    <name>gt_meka_description</name>
+    <version>1.0.0</version>
+    <description>
+        This package contains models of the Georgia Tech Curi robot.
+    </description>
+    <author>Phillip Grice and Daehyung Park, Healthcare Robotics Lab, Georgia Institute of Technology.  Advisor: Charles Kemp.</author>
+    <author>Clint Liddick, Personal Robotics Lab, Carnegie Mellon University</author>
+    <maintainer email="cliddick@andrew.cmu.edu">Clint Liddick</maintainer>
+    <license>BSD</license>
+    <buildtool_depend>catkin</buildtool_depend>
+</package>
+
+
